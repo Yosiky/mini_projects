@@ -12,17 +12,22 @@ int main(int argc, char **argv) {
 
     const int COUNT_ELEM = 10;
     int arr[COUNT_ELEM];
-    int ans;
+    int ans[COUNT_ELEM];
 
     for (int i = 0; i < COUNT_ELEM; ++i) {
         arr[i] = COUNT_ELEM + i;
+        ans[i] = 0;
     }
-    ans = 0;
 
     if (proc_rank == 0) {
         MPI_Scatter(arr, 1, MPI_INT, &ans, 1, MPI_INT, proc_rank, MPI_COMM_WORLD);
     }
-    printf("Hello, it's %d proccess. My value is %d\n", proc_rank, ans);
+
+    printf("Hello, it's %d proccess. My values: ", proc_rank);
+    for (int i = 0; i < COUNT_ELEM; ++i) {
+        printf("%d ", ans[i]);
+    }
+    printf("\n");
 
     MPI_Finalize();
     return (0);
