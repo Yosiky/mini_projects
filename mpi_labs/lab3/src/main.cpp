@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
         MPI_Scatter(arr, 1, MPI_INT, &ans, 1, MPI_INT, proc_rank, MPI_COMM_WORLD);
     }
     MPI_Barrier(MPI_COMM_WORLD);
-    pthread_mutex(&mutex);
+    pthread_mutex_lock(&mutex);
     printf("Hello, it's %d proccess. My values: ", proc_rank);
     for (int i = 0; i < COUNT_ELEM; ++i) {
         printf("%d ", ans[i]);
